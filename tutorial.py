@@ -21,6 +21,6 @@ while run:
             run = False
     
     game.loop()
-    game.draw()
+    game.draw(False, True)
     pygame.display.update() # Draw the screen
 

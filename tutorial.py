@@ -6,6 +6,12 @@ import neat
 import pygame
 from pong import Game
 
+
+
+
+
+
+
 # Global variables
 width, height = 700, 500 # Screen size
 window = pygame.display.set_mode((width, height))
@@ -28,7 +34,8 @@ while run:
     if keys[pygame.K_s]:
         game.move_paddle(left=True, up=False)
         
-    game.loop()
+    game_info = game.loop()
+    print(game_info.left_score, game_info.right_score)
     game.draw(False, True)
     pygame.display.update() # Draw the screen
 

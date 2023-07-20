@@ -19,7 +19,15 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: # If user clicks close (x)
             run = False
+            break
     
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_w]:
+        game.move_paddle(left=True, up=True)
+        
+    if keys[pygame.K_s]:
+        game.move_paddle(left=True, up=False)
+        
     game.loop()
     game.draw(False, True)
     pygame.display.update() # Draw the screen

@@ -26,6 +26,7 @@ class PongGmae:
                     run = False
                     break
             
+            
             keys = pygame.key.get_pressed()
             if keys[pygame.K_w]:
                 game.move_paddle(left=True, up=True)

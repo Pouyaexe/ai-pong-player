@@ -40,7 +40,22 @@ class PongGmae:
         pygame.quit()  # Close the window. Outside the while loop
 
 def eval_genomes(genomes, config): #Genomes = Neural Networks in the current population
-    pass
+    width, height = 700, 500 # Screen size of pygame window
+    window = pygame.display.set_mode((width, height))
+    
+    for i, (genome_id1, genome1) in enumerate(genomes): # Loop through all the genomes in the population
+        
+        if i == len(genomes) - 1: # If the current genome is the last genome in the population
+            break # Break out of the loop    
+        genome1.fitness = 0 # Set the fitness of the current genome to 0
+        
+        for genome_id2, genome2 in genomes[i+1]: # Loop through all of the genomes in the population except the current genome (genome_id, genome)
+            genome2.fitness = 0 if genome2.fitness is None else genome2.fitness # Set the fitness of the current genome to 0 if it is None, otherwise keep the fitness of the current genome
+            game = PongGmae(window=window, width=width, height=height) # Create a new game
+            
+            
+            
+    
 
 def run_neat(config):
     # p = neat.Checkpointer.restore_checkpoint("neat-checkpoint-0") # Load the last checkpoint

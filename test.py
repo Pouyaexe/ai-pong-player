@@ -5,6 +5,7 @@
 import os
 
 import neat
+import visualize
 
 # 2-input XOR inputs and expected outputs.
 xor_inputs = [(0.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0)]

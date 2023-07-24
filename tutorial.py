@@ -7,7 +7,7 @@ import pygame
 from pong import Game
 
 
-class PongGmae:
+class PongGame:
     def __init__(self, window, width, height):
         self.game = Game(window=window, window_width=width, window_height=height)
         self.left_paddle = self.game.left_paddle  # location of left paddle
@@ -63,21 +63,24 @@ class PongGmae:
         pass
                     
 
-def eval_genomes(genomes, config): #Genomes = Neural Networks in the current population
-    width, height = 700, 500 # Screen size of pygame window
-    window = pygame.display.set_mode((width, height))
-    
-    for i, (genome_id1, genome1) in enumerate(genomes): # Loop through all the genomes in the population
-        
-        if i == len(genomes) - 1: # If the current genome is the last genome in the population
-            break # Break out of the loop    
-        genome1.fitness = 0 # Set the fitness of the current genome to 0
-        
-        for genome_id2, genome2 in genomes[i+1]: # Loop through all of the genomes in the population except the current genome (genome_id, genome)
-            genome2.fitness = 0 if genome2.fitness is None else genome2.fitness # Set the fitness of the current genome to 0 if it is None, otherwise keep the fitness of the current genome
-            game = PongGmae(window=window, width=width, height=height) # Create a new game
-            game.test_ai(genome1, genome2, config) # Test the AI by playing the game
-            
+def eval_genomes(genomes, config):
+    """
+    Run each genome against eachother one time to determine the fitness.
+    """
+    width, height = 700, 500
+    win = pygame.display.set_mode((width, height))
+    pygame.display.set_caption("Pong")
+
+    for i, (genome_id1, genome1) in enumerate(genomes):
+        print(round(i/len(genomes) * 100), end=" ")
+        genome1.fitness = 0
+        for genome_id2, genome2 in genomes[min(i+1, len(genomes) - 1):]:
+            genome2.fitness = 0 if genome2.fitness == None else genome2.fitness
+            pong = PongGame(win, width, height)
+
+            force_quit = pong.train_ai(genome1, genome2, config, draw=True)
+            if force_quit:
+                quit()
     
 
 def run_neat(config):

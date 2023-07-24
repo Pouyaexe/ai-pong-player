@@ -55,6 +55,13 @@ class PongGmae:
             self.game.draw()
             pygame.display.update()
             
+            if game_info.left_score >= 1 or game_info.right_score >= 1:
+                self.calculate_fitness(genome1, genome2, game_info)
+                break
+    
+    def calculate_fitness(self, genome1, genome2, game_info):
+        pass
+                    
 
 def eval_genomes(genomes, config): #Genomes = Neural Networks in the current population
     width, height = 700, 500 # Screen size of pygame window

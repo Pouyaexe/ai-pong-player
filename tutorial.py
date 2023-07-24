@@ -38,6 +38,23 @@ class PongGmae:
             pygame.display.update()  # Draw the screen
 
         pygame.quit()  # Close the window. Outside the while loop
+    def train_ai(self, genome1, genome2, config):
+        net1 = neat.nn.FeedForwardNetwork.create(genome1, config)
+        net2 = neat.nn.FeedForwardNetwork.create(genome2, config)
+        
+        
+        run = True
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:  # If user clicks close (x)
+                    quit()
+            output1 = net1.activate((self.left_paddle.y, self.ball.y, abs(self.left_paddle.x - self.ball.x)))        
+            output2 = net2.activate((self.right_paddle.y, self.ball.y, abs(self.right_paddle.x - self.ball.x)))
+            
+            game_info = self.game.loop()
+            self.game.draw()
+            pygame.display.update()
+            
 
 def eval_genomes(genomes, config): #Genomes = Neural Networks in the current population
     width, height = 700, 500 # Screen size of pygame window
@@ -52,8 +69,7 @@ def eval_genomes(genomes, config): #Genomes = Neural Networks in the current pop
         for genome_id2, genome2 in genomes[i+1]: # Loop through all of the genomes in the population except the current genome (genome_id, genome)
             genome2.fitness = 0 if genome2.fitness is None else genome2.fitness # Set the fitness of the current genome to 0 if it is None, otherwise keep the fitness of the current genome
             game = PongGmae(window=window, width=width, height=height) # Create a new game
-            
-            
+            game.test_ai(genome1, genome2, config) # Test the AI by playing the game
             
     
 

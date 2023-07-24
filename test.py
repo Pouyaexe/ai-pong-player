@@ -16,7 +16,7 @@ def evaluate_xor_network(genome, config):
 # Create the NEAT configuration
 config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
                      neat.DefaultSpeciesSet, neat.DefaultStagnation,
-                     'neat-config-file.txt')
+                     'config.txt')
 
 # Create the population and evolve the neural networks
 population = neat.Population(config)
